@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+</head>
+<body>
+{% block navbar %}
+<nav class="navbar navbar-dark" style="background-color: #183147;">
+    <a class="navbar-brand" href="#">
+        <img src="/static/NTC_Logo.png" width="120" height="40" alt="">
+    </a>
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/deployments"></a>
+            <a class="navbar-brand" href="/services"></a>
+            <a class="navbar-brand" href="/components"></a>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+
+{% endblock %}
+
+{% block deployments %}
+
+{% endblock %}
+
+{% block services %}
+
+{% endblock %}
+
+{% block components %}
+
+{% endblock %}
+
+
+{% block footer %}
+<footer class="container">
+    <br>
+    <p class="float-right"><a href="#">Back to top</a></p>
+    <p>&copy; 2017-2018 Oleg Novikov, Netcracker</p>
+</footer>
+{% endblock %}
+</body>
+</html>

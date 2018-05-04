@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block deployments %}
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-10"></h1>
+</div>
+<div class="container">
+    <div class="card-deck mb-3" style="max-width: 70rem;">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Chose Openshift Deployment Scheme</h4>
+            </div>
+            <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <label for="FormControlSelect1">Select Deployment Scheme</label>
+                    <select class="form-control" id="FormControlSelect1">
+                        {% for i in deptypes %}
+                        <option selected="true" id="depschema">{{ i['Name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">vCPU</label>
+                    <input type="email" class="form-control" placeholder="{{ ['vCPU'] }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput2">RAM</label>
+                    <input type="email" class="form-control" placeholder="RAM">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput3">Storage</label>
+                    <input type="email" class="form-control" placeholder="Storage">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput4">IOPS</label>
+                    <input type="email" class="form-control" placeholder="IOPS">
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <button type="button" class="btn btn-outline-primary" id="NextBtn" onclick="javascript:Redirect(this)">Next</abutton>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
