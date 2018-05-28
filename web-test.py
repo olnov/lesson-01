@@ -1,8 +1,30 @@
 from pymongo import MongoClient
-from flask import Flask, render_template_string, render_template
+from flask import Flask, render_template_string, render_template, jsonify, request
+import json
+from bson import json_util
 app = Flask(__name__)
 
 #DB Config
+
+@app.route('/_add_numbers')
+def add_numbers():
+    a = request.args.get('a', 0, type=int)
+    b = request.args.get('b', 0, type=int)
+    return jsonify(result=a + b)
+
+@app.route('/get-data')
+def getdata():
+    deployment = request.args.get('deployment', type=str)
+    client = MongoClient("mongodb://192.168.1.201:27017")
+    db = client.products
+    collection=db.DeploymentType
+    deptype = collection.find_one({"Name": deployment})
+    #for i in collection.find():
+    #    return json.dumps(i, indent=4, default=json_util.default)
+
+    return json.dumps(deptype, indent=4, default=json_util.default)
+    #return json.dumps(deptype, sort_keys=True, indent=4, default=json_util.default)
+    #return deployment
 
 
 @app.route("/hello/<name>")
@@ -15,7 +37,7 @@ def index():
 
 @app.route("/deployments")
 def deployments():
-    client = MongoClient("mongodb://localhost:27017")
+    client = MongoClient("mongodb://192.168.1.201:27017")
     db=client.products
     collection=db.DeploymentType
     deptypes = list(collection.find())

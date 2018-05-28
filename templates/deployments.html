@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block deployments %}
+
 <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-10"></h1>
 </div>
@@ -13,27 +14,32 @@
             <form>
                 <div class="form-group">
                     <label for="FormControlSelect1">Select Deployment Scheme</label>
-                    <select class="form-control" id="FormControlSelect1">
+                    <select class="form-control" id="SelectSchema">
+                        <option id="depschema" value="">Please select...</option>
                         {% for i in deptypes %}
-                        <option selected="true" id="depschema">{{ i['Name'] }}</option>
+                        <option id="depschema" value="{{ i['Name'] }}">{{ i['Name'] }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">vCPU</label>
-                    <input type="email" class="form-control" placeholder="{{ ['vCPU'] }}">
+                    <label for="exampleFormControlInput1">Number of VMs</label>
+                    <input id="VM" type="text"  class="form-control" placeholder="N of VMs" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput2">RAM</label>
-                    <input type="email" class="form-control" placeholder="RAM">
+                    <label for="exampleFormControlInput2">vCPU</label>
+                    <input id="vcpu" type="text"  class="form-control" placeholder="vCPU" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput3">Storage</label>
-                    <input type="email" class="form-control" placeholder="Storage">
+                    <label for="exampleFormControlInput3">RAM</label>
+                    <input id="RAM" type="text" class="form-control" placeholder="RAM" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput4">IOPS</label>
-                    <input type="email" class="form-control" placeholder="IOPS">
+                    <label for="exampleFormControlInput4">Storage</label>
+                    <input id="Storage" type="text" class="form-control" placeholder="Storage" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput5">IOPS</label>
+                    <input id="IOPS" type="text" class="form-control" placeholder="IOPS" readonly>
                 </div>
                 <div class="card-footer bg-transparent border-0">
                     <button type="button" class="btn btn-outline-primary" id="NextBtn" onclick="javascript:Redirect(this)">Next</abutton>
@@ -43,4 +49,19 @@
         </div>
     </div>
 </div>
+<script type=text/javascript>
+  var dtype=document.getElementById("SelectSchema").value;
+  $(function() {
+      $('#SelectSchema').change(function() {
+      $.getJSON('http://localhost:8080/get-data', { deployment: $( "#SelectSchema option:selected" ).text() }, function(data) {
+        $('#VM').val(data.VM);
+        $('#vcpu').val(data.vCPU);
+        $('#RAM').val(data.RAM);
+        $('#Storage').val(data.Storage);
+        $('#IOPS').val(data.IOPS);
+        });
+      });
+      return false;
+    });
+</script>
 {% endblock %}
