@@ -15,34 +15,60 @@
                 <div class="form-group">
                     <label for="FormControlSelect1">Select Deployment Scheme</label>
                     <select class="form-control" id="SelectSchema">
-                        <option id="depschema" value="">Please select...</option>
+                        <option id="depschema" value="" disabled selected>Please select...</option>
                         {% for i in deptypes %}
                         <option id="depschema" value="{{ i['Name'] }}">{{ i['Name'] }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Number of VMs</label>
-                    <input id="VM" type="text"  class="form-control" placeholder="N of VMs" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput2">vCPU</label>
-                    <input id="vcpu" type="text"  class="form-control" placeholder="vCPU" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput3">RAM</label>
-                    <input id="RAM" type="text" class="form-control" placeholder="RAM" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput4">Storage</label>
-                    <input id="Storage" type="text" class="form-control" placeholder="Storage" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput5">IOPS</label>
-                    <input id="IOPS" type="text" class="form-control" placeholder="IOPS" readonly>
-                </div>
+                <table class="fixed" border="0" cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td align="right">
+                            <label for="VM">Number of Openshift VMs:</label>
+                        </td>
+                        <td>
+                            <label id="VM" class="font-weight-bold">N of VMs</label>
+                        </td>
+                        <td rowspan="0">
+                            <img id="image" src="/static/Deployments/blank.jpg" class="img-fluid" width="300" height="300">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label for="vcpu">vCPU:</label>
+                        </td>
+                        <td>
+                            <label id="vcpu" class="font-weight-bold">vCPU</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label for="RAM">RAM:</label>
+                        </td>
+                        <td>
+                            <label id="RAM" class="font-weight-bold">RAM</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label for="Storage">Storage:</label>
+                        </td>
+                        <td>
+                            <label id="Storage" class="font-weight-bold">Storage</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label for="IOPS">IOPS:</label>
+                        </td>
+                        <td>
+                            <label id="IOPS" class="font-weight-bold">IOPS</label>
+                        </td>
+                    </tr>
+                    </table>
+
                 <div class="card-footer bg-transparent border-0">
-                    <button type="button" class="btn btn-outline-primary" id="NextBtn" onclick="javascript:Redirect(this)">Next</abutton>
+                    <button type="button" class="btn btn-outline-primary" id="NextBtn" onclick="javascript:Redirect(this)">Next</button>
                 </div>
             </form>
             </div>
@@ -54,11 +80,12 @@
   $(function() {
       $('#SelectSchema').change(function() {
       $.getJSON('http://localhost:8080/get-data', { deployment: $( "#SelectSchema option:selected" ).text() }, function(data) {
-        $('#VM').val(data.VM);
-        $('#vcpu').val(data.vCPU);
-        $('#RAM').val(data.RAM);
-        $('#Storage').val(data.Storage);
-        $('#IOPS').val(data.IOPS);
+        $('#VM').text(data.VM);
+        $('#vcpu').text(data.vCPU);
+        $('#RAM').text(data.RAM);
+        $('#Storage').text(data.Storage);
+        $('#IOPS').text(data.IOPS);
+        $('#image').attr('src', data.Image);
         });
       });
       return false;

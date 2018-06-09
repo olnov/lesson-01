@@ -19,13 +19,7 @@ def getdata():
     db = client.products
     collection=db.DeploymentType
     deptype = collection.find_one({"Name": deployment})
-    #for i in collection.find():
-    #    return json.dumps(i, indent=4, default=json_util.default)
-
     return json.dumps(deptype, indent=4, default=json_util.default)
-    #return json.dumps(deptype, sort_keys=True, indent=4, default=json_util.default)
-    #return deployment
-
 
 @app.route("/hello/<name>")
 def hello(name):
